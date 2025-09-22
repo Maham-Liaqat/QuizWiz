@@ -1,31 +1,31 @@
+import React from 'react' // Add this import
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { useCallback } from 'react'
 
 const Home = () => {
   const { user } = useAuth()
   const navigate = useNavigate()
 
-  const handleRoleSelection = (role) => {
-    if (user) {
-      // If user is already logged in, navigate based on role
-      if (role === 'instructor') {
-        navigate('/dashboard')
+  // Memoized callback for role selection
+  const handleRoleSelection = useCallback(
+    (role) => {
+      if (user) {
+        navigate(role === 'instructor' ? '/dashboard' : '/quizzes')
       } else {
-        navigate('/quizzes')
+        navigate('/register', { state: { role } })
       }
-    } else {
-      // If not logged in, navigate to register with role pre-selected
-      navigate('/register', { state: { role } })
-    }
-  }
+    },
+    [user, navigate]
+  )
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        {/* Background Elements */}
+        {/* Background Gradients */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-secondary-50"></div>
-        <div className="absolute top-0 left-0 w-full h-full">
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
           <div className="absolute top-20 left-10 w-72 h-72 bg-primary-200/30 rounded-full blur-3xl"></div>
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary-200/30 rounded-full blur-3xl"></div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-accent-200/20 rounded-full blur-3xl"></div>
@@ -33,7 +33,7 @@ const Home = () => {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="text-center">
-            {/* Logo */}
+            {/* Logo & Title */}
             <div className="mb-8">
               <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-2xl shadow-2xl shadow-primary-500/25 mb-6">
                 <span className="text-white font-black text-3xl">Q</span>
@@ -101,6 +101,8 @@ const Home = () => {
                 <button
                   onClick={() => handleRoleSelection('instructor')}
                   className="group card-gradient hover:scale-105 transform transition-all duration-300"
+                  type="button"
+                  aria-label="Get Started as Instructor"
                 >
                   <div className="text-center">
                     <div className="w-16 h-16 bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
@@ -119,6 +121,8 @@ const Home = () => {
                 <button
                   onClick={() => handleRoleSelection('student')}
                   className="group card-gradient hover:scale-105 transform transition-all duration-300"
+                  type="button"
+                  aria-label="Start Learning as Student"
                 >
                   <div className="text-center">
                     <div className="w-16 h-16 bg-gradient-to-r from-secondary-500 to-secondary-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">

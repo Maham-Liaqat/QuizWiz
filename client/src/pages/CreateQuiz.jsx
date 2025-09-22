@@ -1,83 +1,95 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
+import React from 'react' // Add this import
+import { useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+
+// Utility for unique IDs
+const generateId = () => crypto.randomUUID?.() || Date.now().toString();
+
+const DEFAULT_OPTION_COUNT = 4;
+
+const defaultQuestion = (id = generateId()) => ({
+  id,
+  text: '',
+  type: 'multiple-choice',
+  options: Array(DEFAULT_OPTION_COUNT).fill(''),
+  correctAnswer: 0
+});
 
 const CreateQuiz = () => {
-  const navigate = useNavigate()
-  const { user } = useAuth()
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
   const [quiz, setQuiz] = useState({
     title: '',
     description: '',
-    questions: [
-      {
-        id: 1,
-        text: '',
-        type: 'multiple-choice',
-        options: ['', '', '', ''],
-        correctAnswer: 0
-      }
-    ]
-  })
+    questions: [defaultQuestion()]
+  });
 
-  const addQuestion = () => {
-    const newQuestion = {
-      id: quiz.questions.length + 1,
-      text: '',
-      type: 'multiple-choice',
-      options: ['', '', '', ''],
-      correctAnswer: 0
-    }
+  // Add a new question
+  const addQuestion = useCallback(() => {
     setQuiz(prev => ({
       ...prev,
-      questions: [...prev.questions, newQuestion]
-    }))
-  }
+      questions: [...prev.questions, defaultQuestion()]
+    }));
+  }, []);
 
-  const updateQuestion = (questionId, field, value) => {
+  // Update any field of a question
+  const updateQuestion = useCallback((questionId, field, value) => {
     setQuiz(prev => ({
       ...prev,
-      questions: prev.questions.map(q => 
+      questions: prev.questions.map(q =>
         q.id === questionId ? { ...q, [field]: value } : q
       )
-    }))
-  }
+    }));
+  }, []);
 
-  const updateOption = (questionId, optionIndex, value) => {
+  // Update a specific option on a question
+  const updateOption = useCallback((questionId, optionIndex, value) => {
     setQuiz(prev => ({
       ...prev,
-      questions: prev.questions.map(q => 
-        q.id === questionId 
-          ? { 
-              ...q, 
-              options: q.options.map((opt, idx) => 
+      questions: prev.questions.map(q =>
+        q.id === questionId
+          ? {
+              ...q,
+              options: q.options.map((opt, idx) =>
                 idx === optionIndex ? value : opt
               )
             }
           : q
       )
-    }))
-  }
+    }));
+  }, []);
 
-  const removeQuestion = (questionId) => {
-    setQuiz(prev => ({
-      ...prev,
-      questions: prev.questions.filter(q => q.id !== questionId)
-    }))
-  }
+  // Remove a question (but always keep at least one)
+  const removeQuestion = useCallback((questionId) => {
+    setQuiz(prev => {
+      const updatedQuestions = prev.questions.filter(q => q.id !== questionId);
+      return {
+        ...prev,
+        questions: updatedQuestions.length > 0 ? updatedQuestions : [defaultQuestion()]
+      };
+    });
+  }, []);
 
-  const saveQuiz = () => {
-    // In a real app, this would save to a database
-    const quizId = Date.now().toString()
+  // Save quiz to localStorage as a mock backend
+  const saveQuiz = useCallback(() => {
+    const quizId = generateId();
     const quizData = {
       ...quiz,
       createdBy: user.id,
       createdByName: user.name,
       createdAt: new Date().toISOString(),
       status: 'published'
-    }
-    localStorage.setItem(`quiz-${quizId}`, JSON.stringify(quizData))
-    navigate(`/quiz/${quizId}`)
-  }
+    };
+    localStorage.setItem(`quiz-${quizId}`, JSON.stringify(quizData));
+    navigate(`/quiz/${quizId}`);
+  }, [quiz, navigate, user]);
+
+  // Validation helpers
+  const isQuizValid =
+    quiz.title.trim() &&
+    quiz.questions.every(q => q.text.trim() && (q.type !== 'multiple-choice' || q.options.every(opt => opt.trim())));
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -100,7 +112,7 @@ const CreateQuiz = () => {
                 className="input-field"
                 placeholder="Enter quiz title"
                 value={quiz.title}
-                onChange={(e) => setQuiz(prev => ({ ...prev, title: e.target.value }))}
+                onChange={e => setQuiz(prev => ({ ...prev, title: e.target.value }))}
               />
             </div>
             <div>
@@ -112,7 +124,7 @@ const CreateQuiz = () => {
                 rows={3}
                 placeholder="Describe your quiz"
                 value={quiz.description}
-                onChange={(e) => setQuiz(prev => ({ ...prev, description: e.target.value }))}
+                onChange={e => setQuiz(prev => ({ ...prev, description: e.target.value }))}
               />
             </div>
           </div>
@@ -146,7 +158,7 @@ const CreateQuiz = () => {
                     className="input-field"
                     placeholder="Enter your question"
                     value={question.text}
-                    onChange={(e) => updateQuestion(question.id, 'text', e.target.value)}
+                    onChange={e => updateQuestion(question.id, 'text', e.target.value)}
                   />
                 </div>
 
@@ -157,7 +169,7 @@ const CreateQuiz = () => {
                   <select
                     className="input-field"
                     value={question.type}
-                    onChange={(e) => updateQuestion(question.id, 'type', e.target.value)}
+                    onChange={e => updateQuestion(question.id, 'type', e.target.value)}
                   >
                     <option value="multiple-choice">Multiple Choice</option>
                     <option value="true-false">True/False</option>
@@ -165,6 +177,7 @@ const CreateQuiz = () => {
                   </select>
                 </div>
 
+                {/* Multiple Choice Options */}
                 {question.type === 'multiple-choice' && (
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -185,7 +198,7 @@ const CreateQuiz = () => {
                             className="input-field flex-1"
                             placeholder={`Option ${optionIndex + 1}`}
                             value={option}
-                            onChange={(e) => updateOption(question.id, optionIndex, e.target.value)}
+                            onChange={e => updateOption(question.id, optionIndex, e.target.value)}
                           />
                         </div>
                       ))}
@@ -193,6 +206,7 @@ const CreateQuiz = () => {
                   </div>
                 )}
 
+                {/* True/False */}
                 {question.type === 'true-false' && (
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -223,6 +237,7 @@ const CreateQuiz = () => {
                   </div>
                 )}
 
+                {/* Short Answer */}
                 {question.type === 'short-answer' && (
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -233,7 +248,7 @@ const CreateQuiz = () => {
                       className="input-field"
                       placeholder="Enter the correct answer"
                       value={question.options[0] || ''}
-                      onChange={(e) => updateOption(question.id, 0, e.target.value)}
+                      onChange={e => updateOption(question.id, 0, e.target.value)}
                     />
                   </div>
                 )}
@@ -253,14 +268,14 @@ const CreateQuiz = () => {
           <button
             onClick={saveQuiz}
             className="btn-primary flex-1 sm:flex-none"
-            disabled={!quiz.title || quiz.questions.some(q => !q.text)}
+            disabled={!isQuizValid}
           >
             Save & Preview Quiz
           </button>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CreateQuiz
+export default CreateQuiz;
