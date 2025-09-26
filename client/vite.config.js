@@ -6,4 +6,5 @@ export default defineConfig({
   esbuild: {
     jsx: 'automatic', // This enables the new JSX transform
   },
+    base: '/quizwiz/', // Add this line
 })
