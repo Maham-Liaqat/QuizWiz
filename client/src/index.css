@@ -7,61 +7,108 @@
 
 @layer base {
   :root {
-    --color-primary-50: 240 249 255;
-    --color-primary-100: 224 242 254;
-    --color-primary-200: 186 230 253;
-    --color-primary-300: 125 211 252;
-    --color-primary-400: 56 189 248;
-    --color-primary-500: 14 165 233;
-    --color-primary-600: 2 132 199;
-    --color-primary-700: 3 105 161;
-    --color-primary-800: 7 89 133;
-    --color-primary-900: 12 74 110;
+     --color-primary-50: 236 253 245;
+    --color-primary-100: 209 250 229;
+    --color-primary-200: 167 243 208;
+    --color-primary-300: 110 231 183;
+    --color-primary-400: 88 204 2;    /* #58CC02 - Duolingo Green */
+    --color-primary-500: 76 175 80;
+    --color-primary-600: 67 160 71;
+    --color-primary-700: 56 142 60;
+    --color-primary-800: 46 125 50;
+    --color-primary-900: 27 94 32;
     
-    --color-secondary-50: 236 253 245;
-    --color-secondary-100: 209 250 229;
-    --color-secondary-200: 167 243 208;
-    --color-secondary-300: 110 231 183;
-    --color-secondary-400: 52 211 153;
-    --color-secondary-500: 16 185 129;
-    --color-secondary-600: 5 150 105;
-    --color-secondary-700: 4 120 87;
-    --color-secondary-800: 6 95 70;
-    --color-secondary-900: 6 78 59;
+     /* Secondary Blues (Trust & Intelligence) */
+    --color-secondary-50: 239 246 255;
+    --color-secondary-100: 219 234 254;
+    --color-secondary-200: 191 219 254;
+    --color-secondary-300: 147 197 253;
+    --color-secondary-400: 28 176 246;   /* #1CB0F6 - Duolingo Blue */
+    --color-secondary-500: 59 130 246;
+    --color-secondary-600: 37 99 235;
+    --color-secondary-700: 29 78 216;
+    --color-secondary-800: 30 64 175;
+    --color-secondary-900: 30 58 138;
     
-    --color-accent-50: 253 242 248;
-    --color-accent-100: 252 231 243;
-    --color-accent-200: 251 207 232;
-    --color-accent-300: 249 168 212;
-    --color-accent-400: 244 114 182;
-    --color-accent-500: 236 72 153;
-    --color-accent-600: 219 39 119;
-    --color-accent-700: 190 24 93;
-    --color-accent-800: 157 23 77;
-    --color-accent-900: 131 24 67;
+
+      /* Background & Surface Colors */
+    --color-bg-primary: 255 255 255;
+    --color-bg-secondary: 248 250 252;
+    --color-bg-card: 255 255 255;
+    --color-text-primary: 15 23 42;
+    --color-text-secondary: 100 116 139;
+    --color-border: 226 232 240;
   }
 
-  html {
+  .dark {
+    /* Primary Greens (Dark Mode) */
+    --color-primary-50: 20 83 45;
+    --color-primary-100: 22 101 52;
+    --color-primary-200: 21 128 61;
+    --color-primary-300: 22 163 74;
+    --color-primary-400: 88 204 2;    /* #58CC02 - Duolingo Green */
+    --color-primary-500: 34 197 94;
+    --color-primary-600: 74 222 128;
+    --color-primary-700: 134 239 172;
+    --color-primary-800: 187 247 208;
+    --color-primary-900: 220 252 231;
+
+     /* Secondary Blues (Dark Mode) */
+    --color-secondary-50: 30 58 138;
+    --color-secondary-100: 30 64 175;
+    --color-secondary-200: 29 78 216;
+    --color-secondary-300: 37 99 235;
+    --color-secondary-400: 28 176 246;   /* #1CB0F6 - Duolingo Blue */
+    --color-secondary-500: 59 130 246;
+    --color-secondary-600: 96 165 250;
+    --color-secondary-700: 147 197 253;
+    --color-secondary-800: 191 219 254;
+    --color-secondary-900: 219 234 254;
+
+     /* Accent Oranges (Dark Mode) */
+    --color-accent-50: 124 45 18;
+    --color-accent-100: 154 52 18;
+    --color-accent-200: 194 65 12;
+    --color-accent-300: 234 88 12;
+    --color-accent-400: 255 150 0;      /* #FF9600 - Duolingo Orange */
+    --color-accent-500: 249 115 22;
+    --color-accent-600: 251 146 60;
+    --color-accent-700: 253 186 116;
+    --color-accent-800: 254 215 170;
+    --color-accent-900: 255 237 213;
+
+       /* Dark Mode Background & Surface Colors */
+    --color-bg-primary: 15 23 42;
+    --color-bg-secondary: 30 41 59;
+    --color-bg-card: 51 65 85;
+    --color-text-primary: 248 250 252;
+    --color-text-secondary: 148 163 184;
+    --color-border: 71 85 105;
+  }
+
+ html {
     font-family: 'Inter', system-ui, sans-serif;
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
   
-  body {
-    background: linear-gradient(135deg, rgb(var(--color-primary-50)) 0%, rgb(var(--color-primary-100)) 100%);
-    color: rgb(15 23 42);
+   body {
+    background: rgb(var(--color-bg-primary));
+    color: rgb(var(--color-text-primary));
     min-height: 100vh;
     line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  /* Focus styles for accessibility */
+
+   /* Focus styles */
   button:focus-visible,
   input:focus-visible,
   select:focus-visible,
   textarea:focus-visible,
   a:focus-visible {
-    @apply outline-2 outline-offset-2 outline-primary-600;
+    @apply outline-2 outline-offset-2 outline-primary-400;
   }
 
   /* Reduced motion for users who prefer it */
@@ -87,20 +134,20 @@
     @apply font-semibold px-6 py-3 rounded-xl transition-all duration-300 focus:outline-none focus:ring-4 disabled:opacity-50 disabled:cursor-not-allowed;
   }
   
-  .btn-primary {
-    @apply btn bg-gradient-to-r from-primary-600 to-primary-700 text-white hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:shadow-primary-500/25 hover:-translate-y-0.5 focus:ring-primary-200;
+   .btn-primary {
+    @apply btn bg-gradient-to-r from-primary-400 to-primary-500 text-white hover:from-primary-500 hover:to-primary-600 hover:shadow-lg hover:shadow-primary-400/25 hover:-translate-y-0.5 focus:ring-primary-200 dark:from-primary-500 dark:to-primary-600 dark:hover:from-primary-600 dark:hover:to-primary-700;
   }
   
-  .btn-secondary {
-    @apply btn bg-gradient-to-r from-secondary-500 to-secondary-600 text-white hover:from-secondary-600 hover:to-secondary-700 hover:shadow-lg hover:shadow-secondary-500/25 hover:-translate-y-0.5 focus:ring-secondary-200;
+    .btn-secondary {
+    @apply btn bg-gradient-to-r from-secondary-400 to-secondary-500 text-white hover:from-secondary-500 hover:to-secondary-600 hover:shadow-lg hover:shadow-secondary-400/25 hover:-translate-y-0.5 focus:ring-secondary-200 dark:from-secondary-500 dark:to-secondary-600 dark:hover:from-secondary-600 dark:hover:to-secondary-700;
   }
-  
+
   .btn-accent {
-    @apply btn bg-gradient-to-r from-accent-500 to-accent-600 text-white hover:from-accent-600 hover:to-accent-700 hover:shadow-lg hover:shadow-accent-500/25 hover:-translate-y-0.5 focus:ring-accent-200;
+    @apply btn bg-gradient-to-r from-accent-400 to-accent-500 text-white hover:from-accent-500 hover:to-accent-600 hover:shadow-lg hover:shadow-accent-400/25 hover:-translate-y-0.5 focus:ring-accent-200 dark:from-accent-500 dark:to-accent-600 dark:hover:from-accent-600 dark:hover:to-accent-700;
   }
   
-  .btn-outline {
-    @apply btn border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white hover:shadow-lg hover:shadow-primary-500/25 hover:-translate-y-0.5 focus:ring-primary-200;
+   .btn-outline {
+    @apply btn border-2 border-primary-400 text-primary-400 hover:bg-primary-400 hover:text-white hover:shadow-lg hover:shadow-primary-400/25 hover:-translate-y-0.5 focus:ring-primary-200 dark:border-primary-500 dark:text-primary-500 dark:hover:bg-primary-500;
   }
 
   .btn-ghost {
@@ -109,11 +156,11 @@
 
   /* Card Components */
   .card {
-    @apply bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-8 transition-all duration-300 hover:shadow-2xl hover:shadow-primary-500/10 hover:-translate-y-1;
+    @apply bg-white dark:bg-slate-700 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 dark:border-slate-600/30 p-8 transition-all duration-300 hover:shadow-2xl hover:shadow-primary-400/10 hover:-translate-y-1 dark:hover:shadow-slate-600/20;
   }
   
-  .card-gradient {
-    @apply bg-gradient-to-br from-white/90 to-primary-50/50 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-8 transition-all duration-300 hover:shadow-2xl hover:shadow-primary-500/10 hover:-translate-y-1;
+ .card-gradient {
+    @apply bg-gradient-to-br from-white/90 to-primary-50/50 dark:from-slate-700/90 dark:to-primary-900/20 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 dark:border-slate-600/30 p-8 transition-all duration-300 hover:shadow-2xl hover:shadow-primary-400/10 hover:-translate-y-1;
   }
 
   .card-glass {
@@ -121,8 +168,8 @@
   }
 
   /* Form Components */
-  .input-field {
-    @apply w-full px-4 py-3 border-2 border-primary-200 rounded-xl outline-none transition-all duration-300 focus:border-primary-500 focus:ring-4 focus:ring-primary-100 bg-white/80 backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed;
+   .input-field {
+    @apply w-full px-4 py-3 border-2 border-primary-200 dark:border-slate-600 rounded-xl outline-none transition-all duration-300 focus:border-primary-400 focus:ring-4 focus:ring-primary-100 bg-white/80 dark:bg-slate-600/80 backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed dark:focus:border-primary-500 dark:focus:ring-primary-900;
   }
 
   .input-error {
@@ -134,12 +181,12 @@
   }
 
   /* Utility Components */
-  .glass-effect {
-    @apply bg-white/20 backdrop-blur-md border border-white/30;
+ .glass-effect {
+    @apply bg-white/20 dark:bg-slate-800/50 backdrop-blur-md border border-white/30 dark:border-slate-600/30;
   }
-  
-  .text-gradient {
-    @apply bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent;
+
+   .text-gradient {
+    @apply bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent;
   }
 
   .animate-pulse-slow {
@@ -155,6 +202,23 @@
     @apply animate-spin rounded-full border-2 border-primary-200 border-t-primary-600;
   }
 }
+
+
+/* Dark mode toggle styles */
+.theme-toggle {
+  @apply relative inline-flex items-center w-12 h-6 bg-gray-200 dark:bg-slate-600 rounded-full transition-colors duration-300;
+}
+
+.theme-toggle::after {
+  content: '';
+  @apply absolute left-1 top-1 w-4 h-4 bg-white dark:bg-slate-300 rounded-full transition-transform duration-300;
+}
+
+
+.theme-toggle.dark::after {
+  transform: translateX(1.5rem);
+}
+
 
 @layer utilities {
   /* Custom utilities */
@@ -286,4 +350,555 @@
   .input-field {
     @apply bg-slate-800/80 border-slate-600 focus:border-primary-400 focus:ring-slate-700;
   }
+}
+
+
+
+/* Add to your existing index.css */
+
+/* Enhanced Lenis smooth scrolling styles */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Enhanced scroll-triggered animations */
+[data-scroll] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+[data-scroll].scroll-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered animations for lists */
+[data-scroll-stagger] > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+[data-scroll-stagger].scroll-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-scroll-stagger].scroll-visible > *:nth-child(1) { transition-delay: 0.1s; }
+[data-scroll-stagger].scroll-visible > *:nth-child(2) { transition-delay: 0.2s; }
+[data-scroll-stagger].scroll-visible > *:nth-child(3) { transition-delay: 0.3s; }
+[data-scroll-stagger].scroll-visible > *:nth-child(4) { transition-delay: 0.4s; }
+[data-scroll-stagger].scroll-visible > *:nth-child(5) { transition-delay: 0.5s; }
+
+/* Parallax effects */
+[data-scroll-speed] {
+  transition: transform 0.1s linear;
+}
+
+/* Enhanced button hover effects with Lenis compatibility */
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-accent:hover {
+  transform: translateY(-2px) scale(1.02);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Card hover enhancements */
+.card:hover,
+.card-gradient:hover {
+  transform: translateY(-4px) scale(1.01);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Loading animations */
+@keyframes fadeInUpLenis {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-lenis-fade-up {
+  animation: fadeInUpLenis 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Progress bar animations */
+.progress-bar-animate {
+  transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Quiz question transitions */
+.question-enter {
+  opacity: 0;
+  transform: translateX(30px) scale(0.95);
+}
+
+.question-enter-active {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.question-exit {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.question-exit-active {
+  opacity: 0;
+  transform: translateX(-30px) scale(0.95);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Enhanced scroll-triggered animations */
+[data-scroll] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+[data-scroll].scroll-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered animations for lists - FIXED */
+[data-scroll-stagger] > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+[data-scroll-stagger].scroll-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fix the staggered delays */
+[data-scroll-stagger].scroll-visible > *:nth-child(1) { transition-delay: 0.1s; }
+[data-scroll-stagger].scroll-visible > *:nth-child(2) { transition-delay: 0.2s; }
+[data-scroll-stagger].scroll-visible > *:nth-child(3) { transition-delay: 0.3s; }
+[data-scroll-stagger].scroll-visible > *:nth-child(4) { transition-delay: 0.4s; }
+[data-scroll-stagger].scroll-visible > *:nth-child(5) { transition-delay: 0.5s; }
+
+/* Remove transition delays when hiding */
+[data-scroll-stagger]:not(.scroll-visible) > * {
+  transition-delay: 0s !important;
+}
+
+/* Add to your existing index.css */
+
+/* Custom cursor styles */
+* {
+  cursor: none !important;
+}
+
+@media (pointer: coarse) {
+  * {
+    cursor: auto !important;
+  }
+  
+  .animated-cursor {
+    display: none !important;
+  }
+}
+
+/* Custom cursor states */
+.cursor-none {
+  cursor: none !important;
+}
+
+.cursor-scale {
+  transform: scale(1.5);
+}
+
+.cursor-click {
+  transform: scale(0.75);
+}
+
+/* Smooth cursor transitions */
+.cursor-dot {
+  transition: transform 0.15s ease-out;
+}
+
+.cursor-ring {
+  transition: 
+    transform 0.3s ease-out,
+    opacity 0.3s ease-out,
+    border-color 0.3s ease-out;
+}
+
+/* Interactive element hover states */
+a:hover ~ .animated-cursor .cursor-ring,
+button:hover ~ .animated-cursor .cursor-ring,
+.btn:hover ~ .animated-cursor .cursor-ring {
+  transform: scale(1.5);
+  border-color: rgb(var(--color-primary-400));
+}
+
+a:hover ~ .animated-cursor .cursor-dot,
+button:hover ~ .animated-cursor .cursor-dot,
+.btn:hover ~ .animated-cursor .cursor-dot {
+  transform: scale(1.2);
+  background-color: rgb(var(--color-primary-500));
+}
+
+/* Input field cursor states */
+.input-field:hover ~ .animated-cursor .cursor-ring {
+  transform: scale(1.3);
+  border-color: rgb(var(--color-primary-300));
+}
+
+/* Card hover cursor effects */
+.card:hover ~ .animated-cursor .cursor-ring {
+  transform: scale(1.4);
+  opacity: 0.8;
+}
+
+/* Disable cursor on mobile */
+@media (max-width: 768px) {
+  * {
+    cursor: auto !important;
+  }
+  
+  .animated-cursor {
+    display: none !important;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .cursor-dot,
+  .cursor-ring,
+  .trailing-dot {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Custom cursor animations */
+@keyframes cursorPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.cursor-pulse {
+  animation: cursorPulse 2s ease-in-out infinite;
+}
+
+@keyframes cursorSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.cursor-spin {
+  animation: cursorSpin 3s linear infinite;
+}
+
+/* Add to your index.css */
+
+/* Ensure proper z-index stacking */
+nav {
+  z-index: 50;
+}
+
+/* User dropdown menu */
+.user-menu-dropdown {
+  z-index: 100 !important;
+}
+
+/* Animated cursor should be above everything */
+.animated-cursor {
+  z-index: 9999 !important;
+}
+
+/* Modal and overlay z-indexes */
+.modal-overlay {
+  z-index: 1000;
+}
+
+.modal-content {
+  z-index: 1001;
+}
+
+/* Toast notifications */
+.toast {
+  z-index: 1002;
+}
+
+/* Loading overlay */
+.loading-overlay {
+  z-index: 1003;
+}
+
+
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Enhanced scrollbar for dark mode */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(var(--color-bg-secondary));
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--color-primary-500));
+}
+
+/* Selection colors */
+::selection {
+  background-color: rgb(var(--color-primary-400) / 0.2);
+  color: rgb(var(--color-text-primary));
+}
+
+/* Focus styles for dark mode */
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+  border-color: rgb(var(--color-primary-400));
+}
+
+/* Enhanced button animations */
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-accent:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+/* Card hover effects */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+
+/* Loading animation enhancements */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+
+
+
+
+
+
+/* Add to your existing index.css */
+
+/* Mobile-first responsive utilities */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .text-mobile-sm {
+    font-size: 0.875rem;
+  }
+  
+  .text-mobile-base {
+    font-size: 1rem;
+  }
+  
+  .text-mobile-lg {
+    font-size: 1.125rem;
+  }
+  
+  .text-mobile-xl {
+    font-size: 1.25rem;
+  }
+}
+
+/* Touch-friendly button sizes */
+@media (max-width: 768px) {
+  .btn {
+    min-height: 44px; /* Minimum touch target size */
+    padding: 12px 16px;
+  }
+  
+  .input-field {
+    min-height: 44px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Improved mobile navigation */
+@media (max-width: 1024px) {
+  .mobile-menu-enter {
+    transform: translateX(100%);
+  }
+  
+  .mobile-menu-enter-active {
+    transform: translateX(0);
+    transition: transform 300ms ease-out;
+  }
+  
+  .mobile-menu-exit {
+    transform: translateX(0);
+  }
+  
+  .mobile-menu-exit-active {
+    transform: translateX(100%);
+    transition: transform 300ms ease-out;
+  }
+}
+
+/* Better mobile typography */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+    line-height: 1.3;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    line-height: 1.4;
+  }
+  
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+/* Mobile card improvements */
+@media (max-width: 768px) {
+  .card {
+    margin: 0.5rem;
+    padding: 1rem;
+  }
+  
+  .card-gradient {
+    margin: 0.5rem;
+    padding: 1rem;
+  }
+}
+
+/* Improved mobile forms */
+@media (max-width: 768px) {
+  form {
+    padding: 1rem;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* Mobile scroll improvements */
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 80px; /* Account for fixed header */
+  }
+}
+
+/* Reduced motion for mobile */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Mobile-specific animations */
+@keyframes slideUpMobile {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobile-slide-up {
+  animation: slideUpMobile 0.3s ease-out;
+}
+
+/* Improved touch targets */
+@media (max-width: 768px) {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Mobile grid improvements */
+@media (max-width: 768px) {
+  .mobile-grid-1 {
+    grid-template-columns: 1fr;
+  }
+  
+  .mobile-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+}
+
+/* Mobile spacing utilities */
+.mobile-mt-2 { margin-top: 0.5rem; }
+.mobile-mb-2 { margin-bottom: 0.5rem; }
+.mobile-p-4 { padding: 1rem; }
+.mobile-px-4 { padding-left: 1rem; padding-right: 1rem; }
+
+@media (min-width: 769px) {
+  .mobile-mt-2 { margin-top: 0; }
+  .mobile-mb-2 { margin-bottom: 0; }
+  .mobile-p-4 { padding: 0; }
+  .mobile-px-4 { padding-left: 0; padding-right: 0; }
 }

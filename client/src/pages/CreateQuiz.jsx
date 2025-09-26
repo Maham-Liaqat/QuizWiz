@@ -94,14 +94,14 @@ const CreateQuiz = () => {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Create New Quiz</h1>
-        <p className="text-gray-600">Build an engaging quiz with multiple question types</p>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-slate-100 mb-2">Create New Quiz</h1>
+        <p className="text-gray-600 dark:text-slate-300">Build an engaging quiz with multiple question types</p>
       </div>
 
       <div className="space-y-8">
         {/* Quiz Details */}
-        <div className="card">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Quiz Details</h2>
+        <div className="card dark:bg-slate-700/80">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-slate-100 mb-4">Quiz Details</h2>
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">

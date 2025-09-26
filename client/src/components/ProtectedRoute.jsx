@@ -6,12 +6,9 @@ import { useMemo, useCallback } from 'react'
 // Memoized loading component to prevent unnecessary re-renders
 const LoadingSpinner = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div 
-        className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"
-        role="status"
-        aria-label="Loading"
-      >
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-900">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-400">
+
         <span className="sr-only">Loading...</span>
       </div>
     </div>
